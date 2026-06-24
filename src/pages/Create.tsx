@@ -1,17 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import type { NewUserData } from "../App";
 
-type FormData = {
-  username: string;
-  birthdate: string;
-  gender: string;
-  email: string;
-  address: string;
-  phone: string;
-  website: string;
+type CreateProps = {
+  onAddUser: (user: NewUserData) => void;
 };
 
-function Create() {
-  const [formData, setFormData] = useState<FormData>({
+function Create({ onAddUser }: CreateProps) {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState<NewUserData>({
     username: "",
     birthdate: "",
     gender: "",
@@ -31,9 +29,24 @@ function Create() {
     }));
   };
 
+  const resetForm = () => {
+    setFormData({
+      username: "",
+      birthdate: "",
+      gender: "",
+      email: "",
+      address: "",
+      phone: "",
+      website: "",
+    });
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Formular gesendet:", formData);
+    onAddUser(formData);
+    resetForm();
+    navigate("/");
   };
 
   return (
@@ -47,6 +60,7 @@ function Create() {
             name="username"
             value={formData.username}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -58,6 +72,7 @@ function Create() {
             name="birthdate"
             value={formData.birthdate}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -68,8 +83,9 @@ function Create() {
             name="gender"
             value={formData.gender}
             onChange={handleChange}
+            required
           >
-            <option value=""></option>
+            <option value="">-- Bitte auswählen --</option>
             <option value="Männlich">Männlich</option>
             <option value="Weiblich">Weiblich</option>
             <option value="Divers">Divers</option>
@@ -84,6 +100,7 @@ function Create() {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -95,6 +112,7 @@ function Create() {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -106,6 +124,7 @@ function Create() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            required
           />
         </div>
 
