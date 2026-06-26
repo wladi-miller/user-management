@@ -1,23 +1,41 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import type { NewUserData } from "../App";
+import { useNavigate, useParams } from "react-router-dom";
+import type { NewUserData, User } from "../App";
 
-type CreateProps = {
-  onAddUser: (user: NewUserData) => void;
+const emptyFormData: NewUserData = {
+  username: "",
+  birthdate: "",
+  gender: "",
+  email: "",
+  address: "",
+  phone: "",
+  website: "",
 };
 
-function Create({ onAddUser }: CreateProps) {
+type EditProps = {
+  users: User[];
+  onUpdateUser: (userId: string, updatedData: NewUserData) => void;
+};
+
+function Edit({ users, onUpdateUser }: EditProps) {
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState<NewUserData>({
-    username: "",
-    birthdate: "",
-    gender: "",
-    email: "",
-    address: "",
-    phone: "",
-    website: "",
-  });
+  const userToEdit = users.find((user) => user.id === id);
+
+  const [formData, setFormData] = useState<NewUserData>(() =>
+    userToEdit
+      ? {
+          username: userToEdit.username,
+          birthdate: userToEdit.birthdate,
+          gender: userToEdit.gender,
+          email: userToEdit.email,
+          address: userToEdit.address,
+          phone: userToEdit.phone,
+          website: userToEdit.website,
+        }
+      : emptyFormData,
+  );
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -29,27 +47,32 @@ function Create({ onAddUser }: CreateProps) {
     }));
   };
 
-  const resetForm = () => {
-    setFormData({
-      username: "",
-      birthdate: "",
-      gender: "",
-      email: "",
-      address: "",
-      phone: "",
-      website: "",
-    });
-  };
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onAddUser(formData);
-    resetForm();
+
+    if (!id) {
+      return;
+    }
+
+    onUpdateUser(id, formData);
     navigate("/");
   };
 
+  if (!userToEdit) {
+    return (
+      <main className="app-content">
+        <h1>Benutzer nicht gefunden</h1>
+        <button type="button" onClick={() => navigate("/")}>
+          Zurück zur Übersicht
+        </button>
+      </main>
+    );
+  }
+
   return (
     <main className="app-content">
+      <h1>Benutzer bearbeiten</h1>
+
       <form className="input-form-container" onSubmit={handleSubmit}>
         <div className="input-container">
           <span className="input-title">Username</span>
@@ -138,12 +161,21 @@ function Create({ onAddUser }: CreateProps) {
           />
         </div>
 
-        <button className="submit-button" type="submit">
-          Submit
-        </button>
+        <div className="form-actions">
+          <button className="submit-button" type="submit">
+            Änderungen speichern
+          </button>
+          <button
+            className="cancel-button"
+            type="button"
+            onClick={() => navigate("/")}
+          >
+            Abbrechen
+          </button>
+        </div>
       </form>
     </main>
   );
 }
 
-export default Create;
+export default Edit;

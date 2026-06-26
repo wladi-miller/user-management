@@ -1,17 +1,20 @@
+import { Link } from "react-router-dom";
 import type { User } from "../App";
 
 type OverviewProps = {
   users: User[];
+  onDeleteUser: (userId: string) => void;
 };
 
-function Overview({ users }: OverviewProps) {
+function Overview({ users, onDeleteUser }: OverviewProps) {
   return (
-    <>
+    <main className="app-content">
       <h1>Übersicht</h1>
+
       {users.length === 0 ? (
-        <p>Noch keine Benutzer erstellt.</p>
+        <p className="empty-state">Noch keine Benutzer erstellt.</p>
       ) : (
-        <table>
+        <table className="users-table">
           <thead>
             <tr>
               <th>Username</th>
@@ -20,6 +23,7 @@ function Overview({ users }: OverviewProps) {
               <th>Geburtsdatum</th>
               <th>Telefonnummer</th>
               <th>Webseite</th>
+              <th>Aktion</th>
             </tr>
           </thead>
 
@@ -40,12 +44,24 @@ function Overview({ users }: OverviewProps) {
                     "-"
                   )}
                 </td>
+                <td className="action-cell">
+                  <Link className="edit-link" to={"/edit/" + user.id}>
+                    Bearbeiten
+                  </Link>
+                  <button
+                    className="delete-button"
+                    type="button"
+                    onClick={() => onDeleteUser(user.id)}
+                  >
+                    Löschen
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
-    </>
+    </main>
   );
 }
 
