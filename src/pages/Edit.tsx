@@ -10,6 +10,7 @@ const emptyFormData: NewUserData = {
   address: "",
   phone: "",
   website: "",
+  avatarUrl: "",
 };
 
 type EditProps = {
@@ -33,6 +34,7 @@ function Edit({ users, onUpdateUser }: EditProps) {
           address: userToEdit.address,
           phone: userToEdit.phone,
           website: userToEdit.website,
+          avatarUrl: userToEdit.avatarUrl ?? "",
         }
       : emptyFormData,
   );

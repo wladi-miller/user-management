@@ -23,6 +23,7 @@ function Overview({ users, onDeleteUser }: OverviewProps) {
               <th>Geburtsdatum</th>
               <th>Telefonnummer</th>
               <th>Webseite</th>
+              <th>Bild</th>
               <th>Aktion</th>
             </tr>
           </thead>
@@ -43,6 +44,21 @@ function Overview({ users, onDeleteUser }: OverviewProps) {
                   ) : (
                     "-"
                   )}
+                </td>
+                <td>
+                  <img
+                    className="avatar-image"
+                    src={
+                      user.avatarUrl?.trim()
+                        ? user.avatarUrl
+                        : "https://randomuser.me/api/portraits/lego/1.jpg"
+                    }
+                    alt={`Profilbild von ${user.username}`}
+                    onError={(event) => {
+                      event.currentTarget.src =
+                        "https://randomuser.me/api/portraits/lego/1.jpg";
+                    }}
+                  />
                 </td>
                 <td className="action-cell">
                   <Link className="edit-link" to={"/edit/" + user.id}>

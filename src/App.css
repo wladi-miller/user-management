@@ -9,9 +9,13 @@ a {
   color: #242424;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  line-height: 1;
   font-weight: 400;
   background-color: rgba(255, 255, 255, 0.87);
   color: #242424;
@@ -20,7 +24,9 @@ a {
 body {
   margin: 0;
   min-height: 100vh;
-  display: flex;
+  background:
+    radial-gradient(circle at 15% 10%, #eaf1ff 0%, transparent 28%),
+    radial-gradient(circle at 85% 80%, #e8fff8 0%, transparent 24%), #f4f7fb;
 }
 
 .app {
@@ -36,6 +42,7 @@ body {
 .app-content {
   flex-grow: 1;
   padding: 1rem;
+  width: 100%;
 }
 
 .sidebar-container {
@@ -198,6 +205,15 @@ body {
 
 .delete-button:hover {
   background-color: #ffdede;
+}
+
+.avatar-image {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #d9d9d9;
+  background: #f0f0f0;
 }
 
 @media (max-width: 900px) {
