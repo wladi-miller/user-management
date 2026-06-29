@@ -21,9 +21,6 @@ import {
   Typography,
   ThemeProvider,
   createTheme,
-  Avatar,
-  Paper,
-  Button,
   keyframes,
 } from "@mui/material";
 import GroupIcon from "@mui/icons-material/Group";
@@ -80,7 +77,8 @@ const theme = createTheme({
     borderRadius: 16,
   },
   typography: {
-    fontFamily: "'Inter', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontFamily:
+      "'Inter', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     h4: {
       fontFamily: "'Outfit', sans-serif",
       fontWeight: 700,
@@ -143,11 +141,22 @@ function HeaderAnimation() {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 2, sm: 4 } }}>
       {/* Network Activity Wave */}
-      <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 2 }}>
-        <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 600, letterSpacing: 0.5 }}>
+      <Box
+        sx={{
+          display: { xs: "none", sm: "flex" },
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{ color: "text.secondary", fontWeight: 600, letterSpacing: 0.5 }}
+        >
           DATA STREAM
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.6, height: 24 }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: 0.6, height: 24 }}
+        >
           {[0, 1, 2, 3, 4].map((i) => (
             <Box
               key={i}
@@ -173,7 +182,7 @@ function HeaderAnimation() {
           px: 2,
           py: 0.8,
           borderRadius: 8,
-          border: "1px solid rgba(16, 185, 129, 0.2)"
+          border: "1px solid rgba(16, 185, 129, 0.2)",
         }}
       >
         <Box
@@ -185,7 +194,10 @@ function HeaderAnimation() {
             animation: `${pulseDot} 2s infinite`,
           }}
         />
-        <Typography variant="body2" sx={{ color: "secondary.main", fontWeight: 600 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: "secondary.main", fontWeight: 600 }}
+        >
           System Online
         </Typography>
       </Box>
@@ -214,12 +226,25 @@ function AppLayout({
 
   const navigation = [
     { text: "Übersicht", icon: <DashboardIcon />, path: "/" },
-    { text: "Benutzer anlegen", icon: <AddCircleOutlineIcon />, path: "/create" },
+    {
+      text: "Benutzer anlegen",
+      icon: <AddCircleOutlineIcon />,
+      path: "/create",
+    },
   ];
 
   const drawer = (
-    <Box sx={{ height: "100%", display: "flex", flexDirection: "column", bgcolor: "#ffffff" }}>
-      <Box sx={{ px: 3, py: 3.5, display: "flex", alignItems: "center", gap: 1.5 }}>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: "#ffffff",
+      }}
+    >
+      <Box
+        sx={{ px: 3, py: 3.5, display: "flex", alignItems: "center", gap: 1.5 }}
+      >
         <Box
           sx={{
             width: 44,
@@ -235,21 +260,36 @@ function AppLayout({
           <GroupIcon sx={{ color: "#fff", fontSize: 24 }} />
         </Box>
         <Box>
-          <Typography variant="h6" sx={{ fontSize: "1.3rem", lineHeight: 1.2, color: "text.primary" }}>
+          <Typography
+            variant="h6"
+            sx={{ fontSize: "1.3rem", lineHeight: 1.2, color: "text.primary" }}
+          >
             NexUser
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary", fontSize: "0.85rem", fontWeight: 500 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              fontSize: "0.85rem",
+              fontWeight: 500,
+            }}
+          >
             Management
           </Typography>
         </Box>
       </Box>
 
       <List sx={{ px: 2, flexGrow: 1, mt: 1 }}>
-        <Typography variant="overline" sx={{ px: 2, color: "text.secondary", fontWeight: 600 }}>
+        <Typography
+          variant="overline"
+          sx={{ px: 2, color: "text.secondary", fontWeight: 600 }}
+        >
           Menü
         </Typography>
         {navigation.map((item) => {
-          const isActive = location.pathname === item.path || (location.pathname.startsWith('/edit') && item.path === '/');
+          const isActive =
+            location.pathname === item.path ||
+            (location.pathname.startsWith("/edit") && item.path === "/");
           return (
             <ListItemButton
               key={item.text}
@@ -270,7 +310,10 @@ function AppLayout({
                     }
                   : {
                       color: "text.secondary",
-                      "&:hover": { bgcolor: "rgba(0,0,0,0.03)", color: "text.primary" },
+                      "&:hover": {
+                        bgcolor: "rgba(0,0,0,0.03)",
+                        color: "text.primary",
+                      },
                     }),
               }}
             >
@@ -299,8 +342,6 @@ function AppLayout({
           );
         })}
       </List>
-      
-
     </Box>
   );
 
@@ -327,9 +368,9 @@ function AppLayout({
           >
             <MenuIcon />
           </IconButton>
-          
+
           <Box sx={{ flexGrow: 1 }} />
-          
+
           <HeaderAnimation />
         </Toolbar>
       </AppBar>
@@ -368,7 +409,10 @@ function AppLayout({
         </Drawer>
       </Box>
 
-      <Box component="main" sx={{ flexGrow: 1, minWidth: 0, pt: { xs: 8, sm: 9 } }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, minWidth: 0, pt: { xs: 8, sm: 9 } }}
+      >
         <Container maxWidth="xl" sx={{ py: { xs: 3, sm: 4 } }}>
           <Routes>
             <Route
